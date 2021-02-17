@@ -20,7 +20,14 @@ jobs:
         name: Debug
         runs-on: ubuntu-latest
         steps:
+            # TODO test multiple commands
+            -   run: |
+                    echo 1
+                    echo 2
+                    exit 1
+                    echo 3
             -   uses: actions/checkout@v2
+            # TODO test multiple tags
             -   name: Set env
                 run: echo "TAG_NAME=$(git tag --points-at HEAD)" >> $GITHUB_ENV
             -   name: Dump env

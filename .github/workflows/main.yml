@@ -20,6 +20,7 @@ jobs:
         name: Debug
         runs-on: ubuntu-latest
         steps:
+            -   uses: actions/checkout@v2
             -   name: Set env
                 run: echo "TAG_NAME=$(git tag --points-at HEAD)" >> $GITHUB_ENV
             -   name: Dump env

@@ -35,4 +35,6 @@ jobs:
                 run: echo "${{ env.TAG_NAME }}"
             -   name: Tag name
                 run: cat README.md
-
+            -   name: Tag?
+                if: env.TAG_NAME
+                run: echo Yes

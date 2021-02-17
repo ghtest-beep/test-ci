@@ -21,7 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   name: Set env
-                run: echo ::set-env name=TAG_NAME::$(git tag --points-at HEAD)
+                run: echo "TAG_NAME=$(git tag --points-at HEAD)" >> $GITHUB_ENV
             -   name: Dump env
                 run: env | sort
             -   name: Dump GitHub context
@@ -32,6 +32,4 @@ jobs:
                 run: echo "${{ github.event.release.tag_name }}"
             -   name: Tag name
                 run: echo "${{ env.TAG_NAME }}"
-            -   name: Tag name
-                run: echo "${TAG_NAME}"
 

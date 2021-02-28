@@ -43,11 +43,11 @@ jobs:
             -   name: Tag?
                 if: env.TAG_NAME
                 run: echo Yes
-            -   name: test file
-                run: echo "TEST" > test.txt
+            -   name: Build test php container
+                run: docker-compose -f docker-compose.yaml build php
     first-stage:
         needs: debug
         runs-on: ubuntu-latest
         steps:
-            -   run: echo first stage
-            -   run: cat test.txt
+            -   name: up test php container
+                run: docker-compose -f docker-compose.yaml build up

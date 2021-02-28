@@ -20,10 +20,10 @@ jobs:
         name: Debug
         runs-on: ubuntu-latest
         steps:
-            # TODO test multiple commands
+            # test multiple commands
             -   run: |
                     echo 1
-                    echo 2 && asd
+                    echo 2
             -   uses: actions/checkout@v2
             # TODO test multiple tags
             -   name: Set env
@@ -43,3 +43,11 @@ jobs:
             -   name: Tag?
                 if: env.TAG_NAME
                 run: echo Yes
+            -   name: test file
+                run: echo "TEST" > test.txt
+    first-stage:
+        needs: debug
+        runs-on: ubuntu-latest
+        steps:
+            -   run: echo first stage
+            -   run: cat test.txt

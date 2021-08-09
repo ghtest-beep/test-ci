@@ -10,15 +10,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   name: Build Changelog
-                id: github_release
-                uses: mikepenz/release-changelog-builder-action@v1
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             -   run: |
-                    echo 1
-                    fail here
-                    echo 2
+                    echo '{}' > package.json
+            -   name: Changelog
+                uses: scottbrenner/generate-changelog-action@master
+                id: Changelog
     first-stage:
         needs: debug
         runs-on: ubuntu-latest

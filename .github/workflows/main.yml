@@ -9,6 +9,7 @@ jobs:
         name: Debug
         runs-on: ubuntu-latest
         steps:
+            -   uses: actions/checkout@v2
             -   name: Build Changelog
                 id: github_release
                 uses: mikepenz/release-changelog-builder-action@v1
@@ -18,7 +19,6 @@ jobs:
                     echo 1
                     fail here
                     echo 2
-#            -   uses: actions/checkout@v2
     first-stage:
         needs: debug
         runs-on: ubuntu-latest

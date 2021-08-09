@@ -10,12 +10,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   name: "Build Changelog"
-                id: build_changelog
-                uses: mikepenz/release-changelog-builder-action@main
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    toTag: HEAD
+            -   name: Get next version
+                uses: technote-space/get-next-version-action@v1
+            -   run: |
+                    echo "NEXT_VERSION: ${process.env.NEXT_VERSION}"
+
     first-stage:
         needs: debug
         runs-on: ubuntu-latest

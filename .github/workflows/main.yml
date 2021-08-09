@@ -10,11 +10,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   run: |
-                    echo '{}' > package.json
-            -   name: Changelog
-                uses: scottbrenner/generate-changelog-action@master
-                id: Changelog
+            -   uses: nuuday/github-changelog-action@v1.0.0
+                id: changelog
+                with:
+                    next_version: "1.0.0"
+            - run: |
+                echo ${{ steps.changelog.outputs.release_notes }}
     first-stage:
         needs: debug
         runs-on: ubuntu-latest

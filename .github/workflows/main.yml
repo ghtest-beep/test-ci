@@ -10,17 +10,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   uses: SOLIDSoftworks/semver-tags@main
-                id: semver-tags
+            -   id: compute_tag
+                uses: craig-day/compute-tag@v10
                 with:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-                    tag-prefix: 'v'
-                    default-version: '0.0.1'
-                    prerelease: 'alpha'
+                    github_token: ${{ github.token }}
             -   run: |
-                    echo "previous-version: ${{ steps.semver-tags.outputs.previous-version }}"
-                    echo "core-version: ${{ steps.semver-tags.outputs.core-version }}"
-                    echo "semantic-version: ${{ steps.semver-tags.outputs.semantic-version }}"
+                    echo "next-tag: ${{ steps.compute_tag.outputs.next_tag }}
 
     first-stage:
         needs: debug

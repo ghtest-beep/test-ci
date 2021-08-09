@@ -10,10 +10,17 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   name: Get next version
-                uses: technote-space/get-next-version-action@v1
+            -   uses: SOLIDSoftworks/semver-tags
+                id: semver-tags
+                with:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+                    tag-prefix: 'v'
+                    default-version: '0.0.1'
+                    prerelease: 'alpha'
             -   run: |
-                    echo "NEXT_VERSION: ${process.env.NEXT_VERSION}"
+                    echo "previous-version: ${{ steps.semver-tags.outputs.previous-version }}"
+                    echo "core-version: ${{ steps.semver-tags.outputs.core-version }}"
+                    echo "semantic-version: ${{ steps.semver-tags.outputs.semantic-version }}"
 
     first-stage:
         needs: debug

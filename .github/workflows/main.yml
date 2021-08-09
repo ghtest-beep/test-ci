@@ -10,12 +10,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   uses: nuuday/github-changelog-action@v1.0.0
-                id: changelog
+            -   uses: mikepenz/release-changelog-builder-action@{latest-release}
                 with:
-                    next_version: "1.0.0"
-            - run: |
-                echo ${{ steps.changelog.outputs.release_notes }}
+                    toTag: HEAD
     first-stage:
         needs: debug
         runs-on: ubuntu-latest

@@ -10,8 +10,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
-            -   uses: mikepenz/release-changelog-builder-action@main
-                with:
+            -   name: "Build Changelog"
+                id: build_changelog
+                uses: mikepenz/release-changelog-builder-action@main
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     toTag: HEAD
     first-stage:
         needs: debug

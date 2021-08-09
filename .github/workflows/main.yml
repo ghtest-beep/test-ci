@@ -14,8 +14,10 @@ jobs:
                 uses: craig-day/compute-tag@v10
                 with:
                     github_token: ${{ github.token }}
+                    version_type: minor
             -   run: |
-                    echo "next-tag: ${{ steps.compute_tag.outputs.next_tag }}
+                    echo "previous_tag: ${{ steps.compute_tag.outputs.previous_tag }}"
+                    echo "next_tag: ${{ steps.compute_tag.outputs.next_tag }}"
 
     first-stage:
         needs: debug

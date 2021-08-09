@@ -1,53 +1,27 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the action will run.
 on:
-    # Triggers the workflow on push or pull request events but only for the main branch
     push:
-        branches: [ main ]
-        tags:
-            - 'v*'
     pull_request:
-        branches: [ main ]
-    # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
-    release:
-        types: [ published, created, edited ]
 jobs:
     debug:
         name: Debug
         runs-on: ubuntu-latest
         steps:
-            # test multiple commands
+            -   name: Build Changelog
+                id: github_release
+                uses: mikepenz/release-changelog-builder-action@v1
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             -   run: |
                     echo 1
+                    fail here
                     echo 2
-            -   uses: actions/checkout@v2
-            # TODO test multiple tags
-            -   name: Set env
-                run: echo "TAG_NAME=$(git tag --points-at HEAD)" >> $GITHUB_ENV
-            -   name: Dump env
-                run: env | sort
-            -   name: Dump GitHub context
-                env:
-                    GITHUB_CONTEXT: ${{ toJson(github) }}
-                run: echo "$GITHUB_CONTEXT"
-            -   name: Tag name
-                run: echo "${{ github.event.release.tag_name }}"
-            -   name: Tag name
-                run: echo "${{ env.TAG_NAME }}"
-            -   name: Tag name
-                run: cat README.md
-            -   name: Tag?
-                if: env.TAG_NAME
-                run: echo Yes
-            -   name: Build test php container
-                run: docker-compose -f docker-compose.yaml build php
+#            -   uses: actions/checkout@v2
     first-stage:
         needs: debug
         runs-on: ubuntu-latest
         steps:
-            -   name: up test php container
-                run: docker-compose -f docker-compose.yaml build up
+            -   name: test
+                run: echo 'CIA'
